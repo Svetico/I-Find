@@ -1,6 +1,7 @@
 var messages=$.ajax({
 	url:"work.json",
-	type:"json",
+	type:"GET",
+    datatype:"json",
 	success:function(){
 		console.log("Json_request");
 	},
@@ -8,8 +9,9 @@ var messages=$.ajax({
 		console.log("Json_no_request");
 	}
 });
-//messages=JSON.parse(messages);
-console.log(messages);
+data=messages;
+
+console.log(data);
 var html="";
 var Str={
 	New: function(elem)
