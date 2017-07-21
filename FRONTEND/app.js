@@ -1,17 +1,23 @@
-var messages=$.ajax({
-	url:"work.json",
+var url="http://localhost:57772/myappifind/messages";
+$.ajax({
+	url:url,
 	type:"GET",
     datatype:"json",
-	success:function(){
+	success:function(data){
+		
+		mess=data;
+		console.log(data);
 		console.log("Json_request");
+		Next_code(data);
 	},
 	error:function(){
 		console.log("Json_no_request");
 	}
 });
-data=messages;
+//var data=messages;
+function Next_code(data){
+console.log(data[0]);
 
-console.log(data);
 var html="";
 var Str={
 	New: function(elem)
@@ -63,7 +69,7 @@ for(var i=0;i<10;i++)
 				
 				document.getElementById("Messages").appendChild(str);
 			}
-			
+};			
 /*var Messages=React.createClass({
 	render:function()
 	{
