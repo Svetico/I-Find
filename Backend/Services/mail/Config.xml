@@ -4,6 +4,15 @@
 <Super>%Persistent</Super>
 <TimeCreated>64485,70824.187944</TimeCreated>
 
+<Property name="name">
+<Type>%String</Type>
+</Property>
+
+<Index name="nameID">
+<IdKey>1</IdKey>
+<Properties>name</Properties>
+</Index>
+
 <Property name="serverName">
 <Type>%String</Type>
 </Property>
@@ -30,15 +39,33 @@
 
 <Method name="GenerateGmail">
 <ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	set x = ##class(mail.Config).%New()
+	set x.name="google"
 	set x.serverName="pop.gmail.com"
 	set x.port=995
 	set x.SSLConfiguration="google"
 	set x.user="sfutest2017@gmail.com"
 	set x.pass="intersystems"
 	set x.timeout=15
-	do x.%Save()
+	set st= x.%Save()
+	if $$$ISERR(st) q st
+	
+	set y=##class(Security.SSLConfigs).%OpenId("google",,.st)
+    if $$$ISERR(st) set y = ##class(Security.SSLConfigs).%New()
+    set y.CipherList="ALL:!aNULL:!eNULL:!EXP:!SSLv2"
+    set y.Enabled=1
+    set y.Name="google"
+    set y.PrivateKeyType=2 
+    set y.Protocols=30
+    set y.Type=0
+    set y.VerifyDepth=9
+    set y.VerifyPeer=0
+	set st= y.%Save()
+	if $$$ISERR(st) q st
+	
+	q $$$OK
 ]]></Implementation>
 </Method>
 
@@ -70,6 +97,9 @@
 </Value>
 <Value name="7">
 <Value>SSLConfiguration</Value>
+</Value>
+<Value name="8">
+<Value>name</Value>
 </Value>
 </Data>
 </Storage>
