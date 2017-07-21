@@ -47,8 +47,8 @@ for(var i=0;i<10;i++)
 				var topic=Elem.newElem('span', { id:'topic'});
 				var mess=Elem.newElem('span', {id:'message' });
 				var time=Elem.newElem('span', {id:'time' });
-				var str=Elem.newElem('tr',{id:'tr', id:"list"});
-				str.innerHTML='<td></td><td></td><td></td><td></td><td></td><td></td>';
+				var str=Elem.newElem('tr',{id:'tr'});
+				str.innerHTML='<td></td><td></td><td></td><td></td><td></td>';
 				//document.getElementById("name").value="jgjgjgjg";//messages[i].name);
 				//document.getElementById('topic').innerHTML("asd");//messages[i].name);
 				//document.getElementById('mess').innerHTML("sdsdds");//messages[i].name);
@@ -66,7 +66,6 @@ for(var i=0;i<10;i++)
 			}
 			
 /*var Messages=React.createClass({
-
 	render:function()
 	{
 		return(	
