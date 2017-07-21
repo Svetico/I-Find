@@ -1,6 +1,6 @@
-/*var messages=$.ajax({
-	url:,
-	type:,
+var messages=$.ajax({
+	url:"work.json",
+	type:"json",
 	success:function(){
 		console.log("Json_request");
 	},
@@ -8,7 +8,8 @@
 		console.log("Json_no_request");
 	}
 });
-messages=JSON.parse(messages);*/
+//messages=JSON.parse(messages);
+console.log(messages);
 var html="";
 var Str={
 	New: function(elem)
@@ -38,22 +39,18 @@ var Elem={
 	}
 
 };
-var global=Elem.newElem("table");
+var global=Elem.newElem("table",{id:'tab'});
 
 for(var i=0;i<10;i++)
 			{
 				var checkbox =Elem.newElem('input',{id:'checkbox', type:'checkbox'});		
-				var nam =Elem.newElem('span', {id:'Nam'});
-				var topic=Elem.newElem('span', { id:'topic'});
-				var mess=Elem.newElem('span', {id:'message' });
-				var time=Elem.newElem('span', {id:'time' });
+				var nam =Elem.newElem('span', {id:'Nam',class:'btn btn-primary btn-lg', 'data-toggle':"modal", 'data-target':'#myModal'});
+				var topic=Elem.newElem('span', { id:'topic',class:'btn btn-primary btn-lg', value:'ghbdtn','data-toggle':"modal", 'data-target':'#myModal'});
+				var mess=Elem.newElem('span', {id:'message',class:'btn btn-primary btn-lg', 'data-toggle':"modal", 'data-target':'#myModal' });
+				var time=Elem.newElem('span', {id:'time', class:'btn btn-primary btn-lg', 'data-toggle':"modal", 'data-target':'#myModal'});
 				var str=Elem.newElem('tr',{id:'tr'});
 				str.innerHTML='<td></td><td></td><td></td><td></td><td></td>';
-				//document.getElementById("name").value="jgjgjgjg";//messages[i].name);
-				//document.getElementById('topic').innerHTML("asd");//messages[i].name);
-				//document.getElementById('mess').innerHTML("sdsdds");//messages[i].name);
-				//document.getElementById('time').innerHTML("sdsdds");//messages[i].name);
-				//document.getElementById('str').innerHTML("sdsdsd");//messages[i].name);
+				
 				str.getElementsByTagName('td')[0].appendChild(checkbox);
 				str.getElementsByTagName('td')[1].appendChild(nam);
 				str.getElementsByTagName('td')[2].appendChild(topic);

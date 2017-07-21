@@ -14,6 +14,15 @@ body {
   font-family: Comic;
   overflow-y: auto;
 }
+.btn-lg{
+  width: 100%;
+  opacity: 0;
+  background-color: white;
+  height: 100%;
+  outline: 0 !important;
+  border: 0;
+
+}
 
 .glyphs{
   margin-left: 90%;
