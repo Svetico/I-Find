@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> APPS </title>
+    <script src="info.js"> </script> <!--база с откуда берем данные (json)-->
+    <!--<link rel="stylesheet" href="mainsecond.css" type="text/css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--Backgroung tune-->
+   <!-- <style>
+      body { background: url(picture4.jpg);
+      	background-position: center;
+      	background-attachment: fixed;
+        -moz-background-size: 100%; /* Firefox 3.6+ */
+        -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+        -o-background-size: 100%; /* Opera 9.6+ */
+        background-size: 100%; /* modern brausers*/
+       }
+    </style> -->
+  </head>
+  <body>
+		<div class="row" style="margin: 5%;"> 
+         	<div class= "col-xs-2 col-md-2">
+            	<button type="button" class="btn btn-link">Входящие сообщения</button>
+            	<button type="button" class="btn btn-link">Отправленные сообщения</button>
+            	<button type="button" class="btn btn-link">Удаленные сообщения</button>
+            	<button type="button" class="btn btn-link">Спам</button>
+
+        	</div>
+        	<div class= "col-xs-12 col-md-10">
+	        	<div class= "col-md-11">
+	        		<table class="table table-striped">
+						<!-- On cells (`td` or `th`) -->
+						<tr>
+						  <td class="danger" style: text-align: center> 
+						  	<button type="button" class="btn btn-link">Удалить</button></td>
+						  <td class="success" style: text-align: center;><button type="button" class="btn btn-link">Отправить в спам</button></td>
+						  <td class="warning" style: text-align: center;><button type="button" class="btn btn-link">Сортировка</button></td>
+						  <td class="info">
+						  	<form class="form-search">
+  								<input type="text" class="input-medium search-query">
+ 								<button type="submit" class="btn">Search</button>
+							</form></td>
+						</tr>
+	        		</table>
+
+	        	</div>
+	    	</div>    
+	    </div> 
+  </body>
+</html>
