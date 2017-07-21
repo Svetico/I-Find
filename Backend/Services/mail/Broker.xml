@@ -14,7 +14,7 @@
 <!-- **********Тесты***************** -->
 <Route Url="/test" Method="GET" Call="Test"/>
 <!-- *********Сообщения************** -->
-<Route Url="/messages/" Method="GET" Call="GetAllMessages"/>
+<Route Url="/messages" Method="GET" Call="GetAllMessages"/>
 <!-- *********Работа с сервером************** -->
 <Route Url="/server/update/:id" Method="GET" Call="UpdateMails"/>
 </Routes>
@@ -30,6 +30,7 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
+	
     w "{'Status':'OK!'}"
     q $$$OK
 ]]></Implementation>
@@ -44,7 +45,8 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-  //w ##class().GetAllMessages
+	
+  w ##class(backend.data.Message).GetAllMessages()
   q $$$OK
 ]]></Implementation>
 </Method>
