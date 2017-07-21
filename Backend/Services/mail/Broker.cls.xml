@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="mail.Broker">
+<Super>%CSP.REST</Super>
+<TimeCreated>64485,69480.317478</TimeCreated>
+
+<Parameter name="HandleCorsRequest">
+<Default>1</Default>
+</Parameter>
+
+<XData name="UrlMap">
+<Data><![CDATA[
+<Routes>
+<!-- **********Тесты***************** -->
+<Route Url="/test" Method="GET" Call="Test"/>
+ <!-- *********Сообщения************** -->
+<Route Url="/messages/" Method="GET" Call="GetAllMessages"/>
+</Routes>
+]]></Data>
+</XData>
+
+<UDLText name="T">
+<Content><![CDATA[/*---------------------------Тесты-----------------------------------*/
+]]></Content>
+</UDLText>
+
+<Method name="Test">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    w "{'Status':'OK!'}"
+    q $$$OK
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/*--------------------------Сообщения-----------------------------------*/
+]]></Content>
+</UDLText>
+
+<Method name="GetAllMessages">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  //w ##class().GetAllMessages
+  q $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>

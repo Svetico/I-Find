@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="mail.Utils">
+<Super>%RegisteredObject</Super>
+<TimeCreated>64485,70207.765248</TimeCreated>
+
+<Method name="GetEmailConnector">
+<ClassMethod>1</ClassMethod>
+</Method>
+</Class>
+</Export>
