@@ -13,8 +13,10 @@
 <Routes>
 <!-- **********Тесты***************** -->
 <Route Url="/test" Method="GET" Call="Test"/>
- <!-- *********Сообщения************** -->
+<!-- *********Сообщения************** -->
 <Route Url="/messages/" Method="GET" Call="GetAllMessages"/>
+<!-- *********Работа с сервером************** -->
+<Route Url="/server/update/:id" Method="GET" Call="UpdateMails"/>
 </Routes>
 ]]></Data>
 </XData>
@@ -44,6 +46,19 @@
 <Implementation><![CDATA[
   //w ##class().GetAllMessages
   q $$$OK
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/*---------------------------Серверы сообщений-----------------------------------*/
+]]></Content>
+</UDLText>
+
+<Method name="UpdateMails">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[	do ##class(mail.Utils).GetEmailConnector(id)
 ]]></Implementation>
 </Method>
 </Class>

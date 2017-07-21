@@ -5,7 +5,69 @@
 <TimeCreated>64485,70207.765248</TimeCreated>
 
 <Method name="GetEmailConnector">
+<Description>
+Подключение к серверу POP3</Description>
 <ClassMethod>1</ClassMethod>
+<FormalSpec>idConfig:%String</FormalSpec>
+<Implementation><![CDATA[
+	set config=##class(mail.Config).%OpenId(idConfig)
+	
+	set server=##class(%Net.POP3).%New()
+	    
+	set server.SSLConfiguration=config.SSLConfiguration
+	  
+	set servername=config.serverName
+	set server.port=config.port
+	  
+	set user=config.user
+	set pass=config.pass
+	set server.timeout=config.timeout
+	  
+	set status=server.ConnectPort(servername,server.port,user,pass)
+	  
+	if $$$ISERR(status) 
+	{
+	  do $System.Status.DisplayError(status) 
+	  quit $$$ERROR()
+	}
+	  
+	d ..ShowMailbox(server)
+	    
+	quit server
+]]></Implementation>
+</Method>
+
+<Method name="ShowMailbox">
+<Description>
+Получение всех не полученных ранее сообщений и сохранение на сервере</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>server:%Net.POP3</FormalSpec>
+<Implementation><![CDATA[
+    set status=server.GetMailBoxStatus(.count,.size)
+    if $$$ISERR(status) {
+       Do $System.Status.DisplayError(status) 
+       Quit 
+    }
+
+    set status=server.GetMessageUIDArray(,.uids)
+    set status=server.GetSizeOfMessages(,.sizes)
+    
+    for i=1:1:count {
+        set uid=uids.GetAt(i)
+        set size=sizes.GetAt(i)
+	    set status=server.Fetch(i,.msg)
+	    if $$$ISERR(status) {
+	      set subj="***error***"
+	    } else{
+		  //Создать новый объект сообщения
+	      set subj=msg.Subject
+	      //Сохранить
+	    }	
+    }
+    
+    w "find "_count
+    do server.QuitAndCommit()
+]]></Implementation>
 </Method>
 </Class>
 </Export>

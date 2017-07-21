@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="mail.Config">
+<Super>%Persistent</Super>
+<TimeCreated>64485,70824.187944</TimeCreated>
+
+<Property name="serverName">
+<Type>%String</Type>
+</Property>
+
+<Property name="port">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="user">
+<Type>%String</Type>
+</Property>
+
+<Property name="pass">
+<Type>%String</Type>
+</Property>
+
+<Property name="timeout">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="SSLConfiguration">
+<Type>%String</Type>
+</Property>
+
+<Method name="GenerateGmail">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	set x = ##class(mail.Config).%New()
+	set x.serverName="pop.gmail.com"
+	set x.port=995
+	set x.SSLConfiguration="google"
+	set x.user="sfutest2017@gmail.com"
+	set x.pass="intersystems"
+	set x.timeout=15
+	do x.%Save()
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^mail.ConfigD</DataLocation>
+<DefaultData>ConfigDefaultData</DefaultData>
+<IdLocation>^mail.ConfigD</IdLocation>
+<IndexLocation>^mail.ConfigI</IndexLocation>
+<StreamLocation>^mail.ConfigS</StreamLocation>
+<Data name="ConfigDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>serverName</Value>
+</Value>
+<Value name="3">
+<Value>port</Value>
+</Value>
+<Value name="4">
+<Value>user</Value>
+</Value>
+<Value name="5">
+<Value>pass</Value>
+</Value>
+<Value name="6">
+<Value>timeout</Value>
+</Value>
+<Value name="7">
+<Value>SSLConfiguration</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
