@@ -1,4 +1,4 @@
-var url="work.json";
+var url="http://localhost:57772/myappifind/messages";
 $.ajax({
 	url:url,
 	type:"GET",
@@ -16,7 +16,8 @@ $.ajax({
 });
 //var data=messages;
 function Next_code(data){
-console.log(data.arr[0]);
+data=JSON.parse(data);
+console.log(data.arr);
 
 var html="";
 var Str={
