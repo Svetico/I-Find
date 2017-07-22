@@ -83,14 +83,28 @@ console.log(ID);
 				
 				document.getElementById("Messages").appendChild(str);
 			}
-};			
-/*var Messages=React.createClass({
-	render:function()
-	{
-		return(	
-				
-			
-			)
+};
+$(".btn").click(function(e){
+
+$("#Inputserch").keypress(function(e){
+	var url="work.json";
+	var pull=e.target.value;
+$.ajax({
+	url:url,
+	type:"PUT",
+	data:{search:pull},
+    datatype:"json",
+	success:function(data){
+		
+		mess=data;
+		console.log(data);
+		console.log("Json_respons");
+		Next_code(data);
+	},
+	error:function(){
+		console.log("Json_no_response");
 	}
 });
-RenderDOM(<Messages />, documentById("Messages"))*/
+});
+});			
+
