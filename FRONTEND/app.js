@@ -63,7 +63,7 @@ for(var i=0;i<data.arr.length;i++)
 				topic.innerHTML=data.arr[i].subject;
 				mess.innerHTML=data.arr[i].content;
 				time.innerHTML=data.arr[i].date;
-				console.log(data.arr[i].content);
+				
 				str.getElementsByTagName('td')[0].appendChild(checkbox);
 				str.getElementsByTagName('td')[1].appendChild(nam);
 				str.getElementsByTagName('td')[2].appendChild(topic);
@@ -79,25 +79,22 @@ for(var i=0;i<data.arr.length;i++)
 						console.log(ID);
 
 					});
-console.log(ID);
+
 				
 				document.getElementById("Messages").appendChild(str);
 			}
 };
-$(".btn").click(function(e){
-
-$("#Inputserch").keypress(function(e){
-	var url="work.json";
-	var pull=e.target.value;
+$("#buttun").click(function(ev){
+console.log("gol");
+var pull=$("#Inputserch").val();
+console.log(pull);
 $.ajax({
-	url:url,
+	url:,
 	type:"PUT",
 	data:{search:pull},
     datatype:"json",
 	success:function(data){
-		
-		mess=data;
-		console.log(data);
+			
 		console.log("Json_respons");
 		Next_code(data);
 	},
@@ -106,5 +103,5 @@ $.ajax({
 	}
 });
 });
-});			
+		
 
