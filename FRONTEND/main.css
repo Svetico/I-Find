@@ -99,7 +99,7 @@ button.for{
 }
 div.panel {
     padding: 0 10px;
-     background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255,255,255,0.1);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
@@ -143,7 +143,7 @@ body {
   
 }
 .buttons{
-  
+  position:;
   background-color: white;
   height: 100%;
   width: 100%;

@@ -1,14 +1,18 @@
 function Allthis (id){
 	var url;
-	var datam;
+	var datam, req, contenttype="";
 	switch(id){
 		case 0:
-			var pull=$("#Inputserch").val();
-			datam={searc:pull};
-			url="http://localhost:57772/";	
+			var pull=$("#exampleInputword").val();
+			console.log(pull);
+			datam={"word" : pull};
+			contenttype="json"
+			req="GET";
+			url="http://localhost:57772/res/messagesfound";	
 			break;
 		case 1:
-			url="http://localhost:57772/";	
+			url="http://localhost:57772/res/messages";
+			req="GET";
 			break;
 		case 2:
 			url="http://localhost:57772/";	
@@ -26,14 +30,18 @@ function Allthis (id){
 
 
                         $.ajax({
-                        url:"work.json",
-                        type:"GET",
+                        url:url,
+                        
+                        type:req,
                         datatype:"json",
                         data:datam,
                         success:function(data){
-                            console.log(data);
+                        	console.log(data);
+                        	//console.log(JSON.parse(data));
+                        	//console.log(JSON.parse(data)[0].from);
+                            
 	                        console.log("Json_request");
-                            Next_code(data,id);
+                            Next_code(JSON.parse(data),id);
                             datam={};          
                         },
                         error:function(){
@@ -41,11 +49,9 @@ function Allthis (id){
                         }
                         });
 
-	};
+};
 	function Next_code(data)
 	{
-									mess=data;
-	                                
 									var Str={
 										New: function(elem)
 										{
@@ -87,35 +93,35 @@ function Allthis (id){
 									else
 										document.getElementById("Messages").innerHTML="";
 									
-									for(var i=0;i<data.arr.length;i++)
+									for(var i=0;i<data.length;i++)
 												{
 													var checkbox =Elem.newElem('input',{id:'checkbox', type:'checkbox',class:'hidden-sm hidden-xs'});		
 													var nam =Elem.newElem('p', {id:'Nam'+i, onclick:'click', style:'cursor:pointer;', 'data-toggle':"modal", 'data-target':'#myModal'});
 													var topic=Elem.newElem('p', { id:'topic'+i, onclick:'click', style:'cursor:pointer', value:'ghbdtn','data-toggle':"modal", 'data-target':'#myModal'});
 													var mess=Elem.newElem('p', {id:'message'+i, onclick:'click', style:'cursor:pointer','data-toggle':"modal", 'data-target':'#myModal' });
 													var time=Elem.newElem('p', {id:'time'+i, onclick:'click', style:'cursor:pointer','data-toggle':"modal", 'data-target':'#myModal'});
-													var str=Elem.newElem('tr',{id:'tr'+i, style:'border-bottom:1px solid #fff;'});
-													str.innerHTML='<td></td><td></td><td></td><td></td><td></td><td class="hidden-md hidden-lg"  style="padding-left: 10%;""></td>';
+													var str=Elem.newElem('tr',{id:'tr'+i, style:'border-bottom:2px solid #ffffff;'});
 													
-													nam.innerHTML=data.arr[i].from;
-													topic.innerHTML=data.arr[i].subject;
-													mess.innerHTML=data.arr[i].content;
-													time.innerHTML=data.arr[i].date;
+													
+													nam.innerHTML=data[i].from;
+													topic.innerHTML=data[i].subject;
+													mess.innerHTML=data[i].content;
+													time.innerHTML=data[i].date;
 													if(window.screen.width>992){
+														str.innerHTML='<td></td><td></td><td></td><td></td><td></td>';
 														str.getElementsByTagName('td')[0].appendChild(checkbox);
 														str.getElementsByTagName('td')[1].appendChild(nam);
 														str.getElementsByTagName('td')[2].appendChild(topic);
 														str.getElementsByTagName('td')[3].appendChild(mess);
 														str.getElementsByTagName('td')[4].appendChild(time);
-														console.log(str.getElementsByTagName('td')[0]);
+														
 													}
 													else{
-														
-														
-														str.getElementsByTagName('td')[5].appendChild(nam);
-														str.getElementsByTagName('td')[5].appendChild(topic);
-														str.getElementsByTagName('td')[5].appendChild(mess);
-														str.getElementsByTagName('td')[5].appendChild(time);
+														str.innerHTML='<td class="hidden-md hidden-lg"  style="padding-left: 10%; font-size:40px"></td>';
+														str.getElementsByTagName('td')[0].appendChild(nam);
+														str.getElementsByTagName('td')[0].appendChild(topic);
+														str.getElementsByTagName('td')[0].appendChild(mess);
+														str.getElementsByTagName('td')[0].appendChild(time);
 													}
 													
 													var ID;	
@@ -132,12 +138,14 @@ function Allthis (id){
 														});
 
 													
-													global.appendChild(str);
+													
 													if(window.screen.width>992)
 														document.getElementById("Messages").appendChild(str);
+													else
+														global.appendChild(str);
 											}
 												
-												document.getElementById("table_or_button").appendChild(global);
+											document.getElementById("table_or_button").appendChild(global);	
 								$('#Menu').click(function(e){
 									/*document.getElementById("clone").innerHTML = ""; СПРОСИТЬ У САШИ ПРО ТО КАК ЭТО РЕАЛИЗОВАТЬ
 									var link=document.querySelector('link[rel=import]');

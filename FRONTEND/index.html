@@ -4,6 +4,7 @@
         <title> Messanger </title>
         <!--<script src="info.js"> </script> база с откуда берем данные (json)-->
         <link rel="stylesheet" href="main.css" type="text/css">
+        <link rel="html" href="modal.html" type="text/html">
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,57 +19,50 @@
     </head>
     <body>
         <header><strong class="head">&ensp;HAROLD HIDES MESSENGER&ensp;</strong></header>
-        <div class="form-search">
-          <div>
-              <input style="margin-left: 0%; height: 20%; width: 70%;font-size: 35px;" type="text" id="Inputserch" style="width: 80%">
-              
-              <button style="height: 0%; width: 140px; font-size: 35px;" type="submit" class="big" id="0" >Search</button>
-          </div>
-        </div>
-
             <!--<div class="glyphs">
               <button>Спам</button>
               <button><i class="glyphicon glyphicon-trash"></i></button>
             </div>-->
       <div id="includedContent"></div>
+      <div id="for_modal"></div>
         <div class="row">
         
-            <div class= "col-md-2 col-xs-11 col-lg-2 col-sm-2" id="table_or_button">
+            <div class= "col-md-4 col-xs-13 col-lg-4 col-sm-4" id="table_or_button">
                 <div class="buttons" >
                   <button type="button" class="btn btn-link btn-sidebar big" id="1"><strong>Входящие сообщения</strong></button>
-                  <button type="button" class="btn btn-link btn-sidebar big" id="2"><strong>Отправленные сообщения</strong></button>
+                  <!--<button type="button" class="btn btn-link btn-sidebar big" id="2"><strong>Отправленные сообщения</strong></button>
                   <button type="button" class="btn btn-link btn-sidebar big" id="3"><strong>Удаленные сообщения</strong></button>
-                  <button type="button" class="btn btn-link btn-sidebar big" id="4"><strong>Спам</strong></button>
+                  <button type="button" class="btn btn-link btn-sidebar big" id="4"><strong>Спам</strong></button>-->
                   <button type="button" class="accordion btn btn-link btn-sidebar for"><strong><span class="caret"></span> Сортировка сообщений</strong></button>
                   <div class="panel" >
-                    <form class="in">
+                    <!--<form class="in">
                         <div style="color: #337ab7;"><input class="ch" type="checkbox" name="option1" value="a1">&nbsp;<strong class="st">Прочитано</strong></div>
                         <div style="color: #337ab7;"><input class="ch" type="checkbox" name="option2" value="a2">&nbsp;<strong class="st">Прикреплены файлы</strong></div>
 
-                    </form><br>
+                    </form><br>-->
                     <div style="text-align: center">
-                      <strong>По дате:</strong>
+                      <!--<strong>По дате:</strong>
                       <form role="form">
                           <input type="date" class="form-control e" id="exampleInputdate" ><br>
-                      </form>
+                      </form>-->
                       <strong>По ключевому слову:</strong>
                       <form>
                         <input type="word" class="form-control" id="exampleInputword" placeholder="Ключевое слово"><br>
                       </form>
-                      <strong>По отправителю:</strong>
+                      <!--<strong>По отправителю:</strong>
                       <form>
                         <input type="sender" class="form-control" id="exampleInputsender" placeholder="Введите отправителя"><br>
                       </form>
                       <strong>По теме письма:</strong>
                       <form>
                         <input type="theme" class="form-control" id="exampleInputtheme" placeholder="Введите тему письма"><br>
-                      </form>
+                      </form>-->
                     </div>
-                    <button type="submit" class="btn for end big" id="5"><strong>Сортировать</strong></button><br><br>    
+                    <button type="submit" class="btn for end big" id="0"><strong>Сортировать</strong></button><br><br>    
                   </div> 
                 </div>
             </div>
-            <div class= "col-md-9 col-sm-9">
+            <div class= "col-md-8 col-sm-8">
                 <div  style="margin-left: 2%">
                     <table class="table table-bordered table-hover hidden-sm hidden-xs">
                         <thead>
@@ -95,7 +89,7 @@
         </div>
                   <script> 
                               $(function() {
-                                $("#includedContent").load("modal.html"); 
+                                $("#for_modal").load("modal.html"); 
                               }); 
                           </script>
                   
