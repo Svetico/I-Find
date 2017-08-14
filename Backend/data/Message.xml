@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792)" ts="2017-08-14 20:17:09">
+<Class name="backend.data.Message">
+<Super>%Persistent,%Populate,%Net.MailMessage</Super>
+<TimeChanged>64509,73019.929955</TimeChanged>
+<TimeCreated>64485,41958.863788</TimeCreated>
+
+<Property name="Content">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Index name="TextDataIndex">
+<Properties>Content</Properties>
+<TypeClass>%iFind.Index.Basic</TypeClass>
+</Index>
+
+<Property name="Bcc">
+<Description>
+Bcc for message, list of names to which message will be sent (SMTP) or was sent (POP3) </Description>
+<Type>%String</Type>
+<Collection>list</Collection>
+<Parameter name="MAXLEN" value="8000"/>
+</Property>
+
+<Method name="GenerateMessage">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>path:%String,long:%Integer</FormalSpec>
+<Implementation><![CDATA[
+ if '$data(progress) set progress=0
+ 
+    set stream=##class(%FileCharacterStream).%New()
+    set sc=stream.LinkToFile(path)
+    if $$$ISERR(sc) quit sc
+
+ 	set i=0
+ 	while 'stream.AtEnd {
+     	
+     	set i=i+1
+        set str=stream.ReadLine()
+        if (str'=""){
+	        set list1 = ##class(%ListOfObjects).%New()
+	        do list1.Insert((i+1)_"@gmail.com")
+	        do list1.Insert((i+2)_"@gmail.com")
+	        
+        	set mes=..%New()
+         	set mes.Subject="Генирирум "_i
+         	set mes.Date = "11.09.1937"
+         	set mes.Sender = "Клон Иосифа "_i
+         	set mes.From = i_"@gmail.com"
+         	set mes.Cc = list1
+         	
+   			do mes.TextData.Write(str)
+   			
+   			set mes.Content = str
+   			do mes.%Save()
+        }
+    }
+    q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetAllMessages">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	
+	set arr = []
+	
+	&sql(DECLARE StCur CURSOR FOR 
+		SELECT ID
+		FROM backend_data.Message)
+		 
+	&sql(OPEN StCur)
+	for  
+	{	
+		&sql(FETCH StCur INTO :id) 
+		quit:(SQLCODE '= 0)
+			
+		set msg = ..%OpenId(id)
+		set mes = {}
+		set mes.from = msg.From
+		set mes.sender = msg.Sender
+		set mes.cc =[]
+		for j=1:1:msg.Cc.Count(){
+			d mes.cc.%Push(msg.Cc.GetAt(j))
+		}
+		set mes.date = msg.Date
+		set mes.subject = msg.Subject
+		set mes.content = msg.Content
+		
+		do arr.%Push(mes)
+	}
+	&sql(CLOSE StCur)
+		
+	w arr.%ToJSON()
+	q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetAllFoundMessages">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>data:%String</FormalSpec>
+<Implementation><![CDATA[
+	set arr = []
+
+	try{
+		&sql( DECLARE StCur1 CURSOR FOR SELECT ID FROM backend_data.Message 
+			WHERE %ID %FIND search_index(TextDataIndex,:data,0))
+		&sql(OPEN StCur1)
+		
+		for
+		{	
+			&sql(FETCH StCur1 INTO :id) 
+			quit:(SQLCODE '= 0)
+			
+			set msg = ..%OpenId(id)
+			set mes = {}
+			set mes.from = msg.From
+			set mes.sender = msg.Sender
+			set mes.cc =[]
+			for j=1:1:msg.Cc.Count(){
+				d mes.cc.%Push(msg.Cc.GetAt(j))
+			}
+			set mes.date = msg.Date
+			set mes.subject = msg.Subject
+			set mes.content = msg.Content
+			
+			do arr.%Push(mes)
+		}
+		
+		&sql(CLOSE StCur1)
+		w arr.%ToJSON()
+	}
+	catch(e)
+	{}
+	q $$$OK
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^backend.data.MessageD</DataLocation>
+<DefaultData>MessageDefaultData</DefaultData>
+<IdLocation>^backend.data.MessageD</IdLocation>
+<IndexLocation>^backend.data.MessageI</IndexLocation>
+<StreamLocation>^backend.data.MessageS</StreamLocation>
+<Data name="Headers">
+<Attribute>Headers</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"Headers"</Subscript>
+</Data>
+<Data name="MessageDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Cc</Value>
+</Value>
+<Value name="3">
+<Value>Bcc</Value>
+</Value>
+<Value name="4">
+<Value>From</Value>
+</Value>
+<Value name="5">
+<Value>Subject</Value>
+</Value>
+<Value name="6">
+<Value>To</Value>
+</Value>
+<Value name="7">
+<Value>Date</Value>
+</Value>
+<Value name="8">
+<Value>Sender</Value>
+</Value>
+<Value name="9">
+<Value>ReplyTo</Value>
+</Value>
+<Value name="10">
+<Value>MessageSize</Value>
+</Value>
+<Value name="11">
+<Value>IsHTML</Value>
+</Value>
+<Value name="12">
+<Value>ContentType</Value>
+</Value>
+<Value name="13">
+<Value>ContentTransferEncoding</Value>
+</Value>
+<Value name="14">
+<Value>TextData</Value>
+</Value>
+<Value name="15">
+<Value>BinaryData</Value>
+</Value>
+<Value name="16">
+<Value>Dir</Value>
+</Value>
+<Value name="17">
+<Value>FileName</Value>
+</Value>
+<Value name="18">
+<Value>InlineAttachment</Value>
+</Value>
+<Value name="19">
+<Value>Charset</Value>
+</Value>
+<Value name="20">
+<Value>Debug</Value>
+</Value>
+<Value name="21">
+<Value>PartIndex</Value>
+</Value>
+<Value name="22">
+<Value>IsBinary</Value>
+</Value>
+<Value name="23">
+<Value>IsMultiPart</Value>
+</Value>
+<Value name="24">
+<Value>MultiPartType</Value>
+</Value>
+<Value name="25">
+<Value>Content</Value>
+</Value>
+<Value name="26">
+<Value>Data</Value>
+</Value>
+</Data>
+<Data name="Parts">
+<Attribute>Parts</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"Parts"</Subscript>
+</Data>
+</Storage>
+</Class>
+</Export>

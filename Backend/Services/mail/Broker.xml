@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792)" ts="2017-08-14 20:18:08">
+<Class name="mail.Broker">
+<Super>%CSP.REST</Super>
+<TimeChanged>64509,53817.154946</TimeChanged>
+<TimeCreated>64485,69480.317478</TimeCreated>
+
+<Parameter name="HandleCorsRequest">
+<Default>1</Default>
+</Parameter>
+
+<XData name="UrlMap">
+<Data><![CDATA[
+<Routes>
+<Route Url="/test" Method="GET" Call="Test"/>
+<Route Url="/messagesfound" Method="GET" Call="GetAllFoundMessages"/>
+<Route Url="/subjects-found" Method="PUT" Call="GetAllFoundSubjects"/>
+<Route Url="/subjects-found-from" Method="PUT" Call="GetAllFoundFroms"/>
+<Route Url="/messages-found-not" Method="PUT" Call="GetAllFoundNotMessages"/>
+<Route Url="/server/update/:id" Method="GET" Call="UpdateMails"/>
+<Route Url="/messages" Method="GET" Call="GetAllMessages"/>
+</Routes>
+]]></Data>
+</XData>
+
+<UDLText name="T">
+<Content><![CDATA[/*---------------------------Тесты-----------------------------------*/
+]]></Content>
+</UDLText>
+
+<Method name="Test">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+    w "{'Status':'OK!'}"
+    q $$$OK
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/*--------------------------Сообщения-----------------------------------*/
+]]></Content>
+</UDLText>
+
+<Method name="GetAllMessages">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+	q ##class(backend.data.Message).GetAllMessages()
+	//q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetAllFoundMessages">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
+	/*set arr = []
+	set msg={}
+	set msg.f =%request.Content
+	set msg.r =st
+	
+	do arr.%Push(msg)
+	do arr.%Push(%request.Data("word", 1))
+	w arr.%ToJSON()*/
+	q ##class(backend.data.Message).GetAllFoundMessages(%request.Data("word", 1))
+	//q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetAllFoundSubjects">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
+
+	q ##class(backend.data.Message).GetAllFoundSubjects(data.words)
+	//q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetAllFoundFroms">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
+	
+  	q ##class(backend.data.Message).GetAllFoundFroms(data.words)
+  	//q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetAllFoundNotMessages">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	$$$THROWONERROR(st, ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.data,1))
+	
+	q ##class(backend.data.Message).GetAllFoundNotMessages(data.words)
+	//q $$$OK
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/*---------------------------Серверы сообщений-----------------------------------*/
+]]></Content>
+</UDLText>
+
+<Method name="UpdateMails">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[	do ##class(mail.Utils).GetEmailConnector(id)
+]]></Implementation>
+</Method>
+</Class>
+</Export>
