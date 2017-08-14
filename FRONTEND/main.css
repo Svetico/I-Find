@@ -133,6 +133,9 @@ body {
 #Messages{
   color:black;
 }
+.styl{
+  width: 270px!important;
+}
 #table_or_button{
   background-color: white;
   opacity: 0.8;
@@ -146,7 +149,7 @@ body {
   position:;
   background-color: white;
   height: 100%;
-  width: 100%;
+  width: 100%!important;
   font-family: Comic;
   overflow-y: auto;
 }
